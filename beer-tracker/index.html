@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beer Tolerance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 2rem auto;
+      background: #f5f5f7;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.4rem;
+      margin-top: 0.25rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.75rem;
+      background: #3498db;
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #result {
+      margin-top: 2rem;
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Beer Tolerance Tracker</h1>
+  <label for="beerType">Select Beer Type:</label>
+  <select id="beerType">
+    <option value="ipa">IPA</option>
+    <option value="henikens">Henikens</option>
+    <option value="blonde">Blonde Ale</option>
+    <option value="peroni">Peroni</option>
+    <option value="sapporo">Sapporo</option>
+    <option value="radler">Radler</option>
+    <option value="steigl">Steigl</option>
+  </select>
+
+  <label for="quantity">Number of Beers:</label>
+  <input type="number" id="quantity" min="1" value="1" />
+
+  <button onclick="checkTolerance()">Check Tolerance</button>
+
+  <div id="result"></div>
+
+  <script>
+    const toleranceData = {
+      ipa: 1,
+      henikens: 3,
+      blonde: 2,
+      peroni: 3,
+      sapporo: 3,
+      radler: 4,
+      steigl: 4
+    };
+
+    function checkTolerance() {
+      const beer = document.getElementById('beerType').value;
+      const qty = parseInt(document.getElementById('quantity').value) || 0;
+      const tolerance = toleranceData[beer];
+
+      const resultDiv = document.getElementById('result');
+
+      if (qty <= tolerance) {
+        resultDiv.textContent = `You're good! You can enjoy ${qty} ${beer} beer(s) with minimal side effects.`;
+        resultDiv.style.color = 'green';
+      } else if (qty <= tolerance + 1) {
+        resultDiv.textContent = `Caution! Having ${qty} ${beer} beer(s) may cause mild hangover symptoms.`;
+        resultDiv.style.color = 'orange';
+      } else {
+        resultDiv.textContent = `Warning! Drinking ${qty} ${beer} beer(s) will likely give you strong hangover symptoms.`;
+        resultDiv.style.color = 'red';
+      }
+    }
+  </script>
+</body>
+</html>
